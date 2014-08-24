@@ -1,12 +1,12 @@
-describe('PhoneListCtrl', function(){
+describe('TestCtrl', function(){
 
-  beforeEach(angular.mock.module('phonecatApp'));
+  beforeEach(angular.mock.module('bizusafoApp'));
 
-  it('should create "phones" model with 3 phones', inject(function($controller) {
+  it('runs', inject(function($controller) {
     var scope = {},
-        ctrl = $controller('PhoneListCtrl', {$scope:scope});
+        ctrl = $controller('TestCtrl', {$scope:scope});
 
-    expect(scope.phones.length).toBe(3);
+    expect(1).toBe(1);
   }));
 
 });

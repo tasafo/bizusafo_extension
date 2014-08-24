@@ -1,12 +1,27 @@
-var phonecatApp = angular.module('phonecatApp', []);
+var bizusafoApp = angular.module('bizusafoApp', ['ngRoute']);
 
-phonecatApp.controller('PhoneListCtrl', function ($scope) {
-  $scope.phones = [
-    {'name': 'Nexus S',
-     'snippet': 'Fast just got faster with Nexus S.'},
-    {'name': 'Motorola XOOM™ with Wi-Fi',
-     'snippet': 'The Next, Next Generation tablet.'},
-    {'name': 'MOTOROLA XOOM™',
-     'snippet': 'The Next, Next Generation tablet.'}
-  ];
-});
+bizusafoApp.config(['$routeProvider',
+  function($routeProvider) {
+    $routeProvider.
+      when('/phones', {
+        templateUrl: 'javascripts/partials/test.html',
+        controller: 'TestCtrl'
+      }).
+      when('/eng', {
+        templateUrl: 'javascripts/partials/eng.html',
+        controller: 'EngCtrl'
+      }).
+      otherwise({
+        redirectTo: '/phones'
+      });
+  }]);
+
+bizusafoApp.controller('TestCtrl', ['$scope', '$http',
+  function () {
+  }]);
+
+
+bizusafoApp.controller('EngCtrl', ['$scope', '$http',
+  function () {
+  }]);
+
