@@ -15,9 +15,13 @@ module.exports = function(config) {
       'src/javascripts/lib/angular.js',
       'src/javascripts/lib/angular-route.min.js',
 
-      'src/javascripts/app/*.js',
+      'src/javascripts/app/main.js',
+      'src/javascripts/app/**/*.js',
+
       'src/javascripts/test/lib/angular-mocks.js',
-      'src/javascripts/test/*.js'
+      'src/javascripts/test/lib/chrome_storage_mock.js',
+      'src/javascripts/test/app/*.js',
+      'src/javascripts/test/controllers/*.js'
     ],
 
 

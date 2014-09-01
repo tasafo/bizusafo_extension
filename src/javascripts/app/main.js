@@ -1,27 +1,22 @@
-var bizusafoApp = angular.module('bizusafoApp', ['ngRoute']);
+(function() {
+  var app = angular.module('bizusafoApp', ['routes', 'login-directives', 'story-directives']);
 
-bizusafoApp.config(['$routeProvider',
-  function($routeProvider) {
-    $routeProvider.
-      when('/phones', {
-        templateUrl: 'javascripts/partials/test.html',
-        controller: 'TestCtrl'
-      }).
-      when('/eng', {
-        templateUrl: 'javascripts/partials/eng.html',
-        controller: 'EngCtrl'
-      }).
-      otherwise({
-        redirectTo: '/phones'
-      });
+  app.config(['$httpProvider', function ($httpProvider) {
+    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   }]);
 
-bizusafoApp.controller('TestCtrl', ['$scope', '$http',
-  function () {
+  app.run(['$rootScope', '$location', function($rootScope, $location) {
+    chrome.storage.local.get("user", function(data) {
+      $rootScope.user = { };
+
+      if (data && data.user && data.user.email) {
+        $rootScope.user.email = data.user.email;
+      }
+
+      if (data && data.user && data.user.token) {
+        $rootScope.user.token = data.user.token;
+        $location.url("/stories/new");
+      }
+    })
   }]);
-
-
-bizusafoApp.controller('EngCtrl', ['$scope', '$http',
-  function () {
-  }]);
-
+})();
