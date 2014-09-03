@@ -1,2 +1,17 @@
-<h1>New Story</h1>
-<p>But pending...</p>
+<h1>Compartilhar Bizu!</h1>
+
+<div ng-controller="NewStoryController as ctrl">
+  <form>
+    <div>
+      <label for="story_url">Url</label>
+      <input ng-model="story.url" type="url" id="story_url" required/>
+    </div>
+    <div>
+      <label for="story_description">Descrição</label>
+      <textarea ng-model="story.description" id="story_description" required/></textarea>
+    </div>
+    <div>
+      <input type="submit" value="Compartilhar"/>
+    </div>
+  </form>
+</div>

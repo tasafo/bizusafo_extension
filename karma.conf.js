@@ -20,6 +20,7 @@ module.exports = function(config) {
 
       'src/javascripts/test/lib/angular-mocks.js',
       'src/javascripts/test/lib/chrome_storage_mock.js',
+      'src/javascripts/test/lib/chrome_tabs_mock.js',
       'src/javascripts/test/app/*.js',
       'src/javascripts/test/controllers/*.js'
     ],
