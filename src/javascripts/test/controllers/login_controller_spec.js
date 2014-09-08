@@ -1,16 +1,17 @@
 describe("LoginController", function(){
-  var scope, ctrl, $httpBackend, location;
+  var scope, ctrl, $httpBackend, location, BackendUrl;
 
   beforeEach(angular.mock.module("bizusafoApp"));
 
-  beforeEach(inject(function(_$httpBackend_, _$controller_, _$location_) {
+  beforeEach(inject(function(_$httpBackend_, _$controller_, _$location_, _BackendUrl_) {
     $httpBackend  = _$httpBackend_;
     $controller   = _$controller_
-    $location      = _$location_;
-    
+    $location     = _$location_;
+    BackendUrl    = _BackendUrl_;
+
     $location.url("/login")
     scope = { }
-    ctrl = $controller('LoginController', {$scope: scope, $location: $location}); 
+    ctrl = $controller('LoginController', {$scope: scope, $location: $location});
   }));
 
   afterEach(function() {
@@ -24,7 +25,7 @@ describe("LoginController", function(){
 
     describe("on success", function() {
       beforeEach(function() {
-        $httpBackend.expectPOST('http://localhost:3000/api/v1/token', { user: scope.user }).respond({token: "my_token"});
+        $httpBackend.expectPOST(BackendUrl + '/api/v1/token', { user: scope.user }).respond({token: "my_token"});
         ctrl.submitLogin();
         $httpBackend.flush();
       });
@@ -58,7 +59,7 @@ describe("LoginController", function(){
 
     describe("on error", function() {
       beforeEach(function() {
-        $httpBackend.expectPOST('http://localhost:3000/api/v1/token', { user: scope.user }).respond(401, '');
+        $httpBackend.expectPOST(BackendUrl + '/api/v1/token', { user: scope.user }).respond(401, '');
         ctrl.submitLogin();
         $httpBackend.flush();
       });

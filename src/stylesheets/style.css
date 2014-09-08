@@ -1,4 +1,20 @@
 body {
-  width: 300px;
-  height: 400px;
+  width: 420px;
+  height: 200px;
+  padding: 20px;
+  font-family: "Lucida Grande", "Helvetica", sans-serif;
+  font-size: 14px;
+}
+
+body > header  {
+  margin-bottom: 20px;
+}
+
+a, a:visited, a:hover, a:focus {
+  text-decoration: none;
+  outline: none;
+}
+
+input.ng-dirty.ng-invalid {
+  border: 1px solid #EE3C3C;
 }

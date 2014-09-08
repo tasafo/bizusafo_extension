@@ -1,17 +1,29 @@
-<h1>Compartilhar Bizu!</h1>
-
 <div ng-controller="NewStoryController as ctrl">
-  <form>
-    <div>
-      <label for="story_url">Url</label>
-      <input ng-model="story.url" type="url" id="story_url" required/>
+
+  <div class="alert alert-success" ng-show="alert.success">{{alert.success}}</div>
+  <div class="alert alert-error" ng-show="alert.error">{{alert.error}}</div>
+
+  <form name="form" ng-submit="ctrl.submit()">
+    <legend>Compartilhar Bizu!</legend>
+
+    <div class="form-group">
+      <label for="story_url">URL</label>
+      <input ng-model="story.url" type="url" id="story_url" placeholder="URL do Bizu!" class="form-control" required/>
     </div>
-    <div>
+
+    <div class="form-group">
       <label for="story_description">Descrição</label>
-      <textarea ng-model="story.description" id="story_description" required/></textarea>
+      <textarea ng-model="story.description" id="story_description" placeholder="Deixe seu Bizuuuu!" class="form-control" required/></textarea>
     </div>
-    <div>
-      <input type="submit" value="Compartilhar"/>
+
+    <div class="form-group">
+      <label for="story_tag_list">Tags</label>
+      <input type="text" ng-model="story.tag_list" id="story_tag_list" placeholder="ex: Java, IDE, Padrão (separe as tags por vírgulas)" class="form-control" /></textarea>
+    </div>
+
+    <div class="actions">
+      <input type="submit" class="btn btn-primary" value="Compartilhar"/>
+      ou <a href="" ng-click="ctrl.reset()">Resetar</a>
     </div>
   </form>
 </div>

@@ -1,10 +1,18 @@
 <form accept-charset="UTF-8" ng-controller="LoginController as login">
   <legend>Entrar</legend>
-  <label for="user_email">Email</label><br>
-  <input autofocus="autofocus" id="user_email" type="email" ng-model="user.email">
 
-  <label for="user_password">Senha</label><br>
-  <input autocomplete="off" id="user_password" type="password"  ng-model="user.password">
+  <div class="alert alert-success" ng-show="alert.success">{{alert.success}}</div>
+  <div class="alert alert-error" ng-show="alert.error">{{alert.error}}</div>
 
-  <input type="submit" value="Entrar" ng-click="login.submitLogin()">
+  <div class="form-group">
+    <label for="user_email">Email</label><br>
+    <input autofocus="autofocus" id="user_email" type="email" ng-model="user.email" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="user_password">Senha</label><br>
+    <input autocomplete="off" id="user_password" type="password"  ng-model="user.password" class="form-control" required>
+  </div>
+
+  <input type="submit" value="Entrar" ng-click="login.submitLogin()" class="btn btn-primary">
 </form>

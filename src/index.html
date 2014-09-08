@@ -2,16 +2,25 @@
 <html ng-app="bizusafoApp">
   <head>
     <meta charset="utf-8" />
+    <script src="/javascripts/lib/jquery-2.1.1.min.js"></script>
     <script src="/javascripts/lib/angular.js"></script>
     <script src="/javascripts/lib/angular-route.min.js"></script>
+    <script src="/javascripts/lib/bootstrap.min.js"></script>
 
+    <script src="/javascripts/app/settings.js"></script>
     <script src="/javascripts/app/main.js"></script>
     <script src="/javascripts/app/routes.js"></script>
     <script src="/javascripts/app/controllers/login_controller.js"></script>
     <script src="/javascripts/app/controllers/new_story_controller.js"></script>
+
+    <link   href="stylesheets/lib/bootstrap.min.css" rel="stylesheet" />
     <link   href="stylesheets/style.css" rel="stylesheet" />
   </head>
 <body>
+  <header>
+    <a href="http://bizusafo.com.br"><img src="/images/logo.png"></a>
+  </header>
+
   <div ng-view></div>
 </body>
 </html>

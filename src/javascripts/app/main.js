@@ -19,4 +19,9 @@
       }
     })
   }]);
+
+  app.constant("BackendUrl",  window.ENV == "production"  ? "http://bizusafo.com.br" :
+                              window.ENV == "development" ? "http://localhost:3000" :
+                                                            "http://test.bizusaof.com.br"
+);
 })();
