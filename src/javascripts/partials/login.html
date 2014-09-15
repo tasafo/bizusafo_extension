@@ -1,8 +1,14 @@
 <form accept-charset="UTF-8" ng-controller="LoginController as login">
   <legend>Entrar</legend>
 
-  <div class="alert alert-success" ng-show="alert.success">{{alert.success}}</div>
-  <div class="alert alert-error" ng-show="alert.error">{{alert.error}}</div>
+  <div class="alert alert-success" ng-show="alert.success">
+    <button type="button" class="close" ng-click="alert.success = undefined"><span aria-hidden="true">&times;</span></button>
+    {{alert.success}}
+  </div>
+  <div class="alert alert-danger" ng-show="alert.error">
+    <button type="button" class="close" ng-click="alert.error = undefined"><span aria-hidden="true">&times;</span></button>
+    {{alert.error}}
+  </div>
 
   <div class="form-group">
     <label for="user_email">Email</label><br>

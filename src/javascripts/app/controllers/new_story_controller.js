@@ -12,8 +12,9 @@
         });
       };
 
-      this.reset = function() {
+      this.reset = function(form) {
         $scope.story = { description: "", url: "", tag_list: "" };
+        if (form) form.$setPristine()
       };
 
       this.reset();

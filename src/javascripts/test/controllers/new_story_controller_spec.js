@@ -63,16 +63,25 @@ describe("NewStoryController", function(){
   });
 
   describe("reset", function() {
+    var pristineSpy, form;
+
     beforeEach(function() {
       scope.story = { url: "http://google.com", description: "Search on Google!", tags: "search, google" }
       ctrl = $controller('NewStoryController', {$scope: scope});
-      ctrl.reset()
+
+      form = { $setPristine: function() {} };
+      pristineSpy = sinon.spy(form, "$setPristine");
+      ctrl.reset(form);
     });
 
     it("resets form", function() {
       expect(scope.story.description).toBe("");
       expect(scope.story.tag_list).toBe("");
       expect(scope.story.url).toBe("");
+    });
+
+    it("sets form to pristine", function() {
+      expect(pristineSpy.called).toBe(true);
     });
   });
 });

@@ -1,7 +1,13 @@
 <div ng-controller="NewStoryController as ctrl">
 
-  <div class="alert alert-success" ng-show="alert.success">{{alert.success}}</div>
-  <div class="alert alert-error" ng-show="alert.error">{{alert.error}}</div>
+  <div class="alert alert-success" ng-show="alert.success">
+    <button type="button" class="close" ng-click="alert.success = undefined"><span aria-hidden="true">&times;</span></button>
+    {{alert.success}}
+  </div>
+  <div class="alert alert-danger" ng-show="alert.error">
+    <button type="button" class="close" ng-click="alert.error = undefined"><span aria-hidden="true">&times;</span></button>
+    {{alert.error}}
+  </div>
 
   <form name="form" ng-submit="ctrl.submit()">
     <legend>Compartilhar Bizu!</legend>
@@ -23,7 +29,7 @@
 
     <div class="actions">
       <input type="submit" class="btn btn-primary" value="Compartilhar"/>
-      ou <a href="" ng-click="ctrl.reset()">Resetar</a>
+      ou <a href="" ng-click="ctrl.reset(form)">Resetar</a>
     </div>
   </form>
 </div>
