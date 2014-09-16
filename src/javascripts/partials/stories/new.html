@@ -1,4 +1,4 @@
-<div ng-controller="NewStoryController as ctrl">
+<div ng-controller="NewStoryController">
 
   <div class="alert alert-success" ng-show="alert.success">
     <button type="button" class="close" ng-click="alert.success = undefined"><span aria-hidden="true">&times;</span></button>
@@ -9,7 +9,7 @@
     {{alert.error}}
   </div>
 
-  <form name="form" ng-submit="ctrl.submit()">
+  <form name="storyForm" ng-submit="submit()">
     <legend>Compartilhar Bizu!</legend>
 
     <div class="form-group">
@@ -24,12 +24,17 @@
 
     <div class="form-group">
       <label for="story_tag_list">Tags</label>
-      <input type="text" ng-model="story.tag_list" id="story_tag_list" placeholder="ex: Java, IDE, Padrão (separe as tags por vírgulas)" class="form-control" /></textarea>
+      <input type="text" ng-model="story.tag_list" id="story_tag_list" placeholder="ex: Java, IDE, Padrão (separe as tags por vírgulas)" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="story_comment">Primeiro Comentário (opcional)</label>
+      <textarea type="text" ng-model="story.comment_text" id="story_comment" placeholder="Comente aqui" class="form-control" /></textarea>
     </div>
 
     <div class="actions">
       <input type="submit" class="btn btn-primary" value="Compartilhar"/>
-      ou <a href="" ng-click="ctrl.reset(form)">Resetar</a>
+      ou <a href="" ng-click="reset()">Resetar</a>
     </div>
   </form>
 </div>

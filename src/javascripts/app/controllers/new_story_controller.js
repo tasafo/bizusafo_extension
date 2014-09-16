@@ -3,25 +3,26 @@
 
   app.controller('NewStoryController', ['$scope', '$http', 'BackendUrl',
     function ($scope, $http, BackendUrl) {
-      this.submit = function() {
+      $scope.submit = function() {
         $http.post(BackendUrl + "/api/v1/stories", { story: $scope.story }, { headers: { 'Authorization': "Token token=" + $scope.user.token } })
         .success(function() {
-          $scope.story = { description: "", url: "", tag_list: "" };
+          $scope.reset();
           $scope.alert = $scope.alert || {};
           $scope.alert.success = "Obrigado por compartilhar este Bizu!";
         });
       };
 
-      this.reset = function(form) {
-        $scope.story = { description: "", url: "", tag_list: "" };
-        if (form) form.$setPristine()
+      $scope.reset = function() {
+        $scope.story = { description: "", url: "", comment_text: "", tags: "" };
+        if ($scope.storyForm) { $scope.storyForm.$setPristine() };
       };
 
-      this.reset();
+      $scope.reset();
 
       chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         if (tabs.length > 0) {
           $scope.$apply(function() {
+            $scope.story = $scope.story || { };
             $scope.story.url = tabs[0].url;
           });
         }

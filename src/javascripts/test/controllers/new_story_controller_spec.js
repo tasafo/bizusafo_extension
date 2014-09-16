@@ -1,13 +1,16 @@
 describe("NewStoryController", function(){
-  var scope, ctrl, BackendUrl;
+  var scope, BackendUrl, pristineSpy;
 
   beforeEach(angular.mock.module("bizusafoApp"));
 
-  beforeEach(inject(function(_$rootScope_, _$controller_, _$httpBackend_, _BackendUrl_) {
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _$rootScope_, _BackendUrl_) {
     $controller   = _$controller_;
-    scope = _$rootScope_;
     $httpBackend  = _$httpBackend_;
+    scope =         _$rootScope_;
     BackendUrl    = _BackendUrl_;
+
+    scope.storyForm = { $setPristine: function() {} };
+    pristineSpy = sinon.spy(scope.storyForm, "$setPristine");
 
     chrome.tabs.custom.removeAll();
   }));
@@ -15,15 +18,15 @@ describe("NewStoryController", function(){
   describe("on load", function() {
     beforeEach(function() {
       chrome.tabs.create({ id: 1, url: "http://google.com", active: true, currentWindow: true });
-      ctrl = $controller('NewStoryController', {$scope: scope});
+
+      $controller('NewStoryController', {$scope: scope});
     });
 
-    it("resets description", function() {
+    it("resets story form", function() {
       expect(scope.story.description).toBe("");
-    });
-
-    it("resets description", function() {
-      expect(scope.story.tag_list).toBe("");
+      expect(scope.story.tags).toBe("");
+      expect(scope.story.comment_text).toBe("");
+      expect(pristineSpy.called).toBe(true);
     });
 
     it("sets url as current tab url", function() {
@@ -33,16 +36,18 @@ describe("NewStoryController", function(){
 
   describe("on submit", function() {
     beforeEach(function() {
-      ctrl = $controller('NewStoryController', {$scope: scope});
+      $controller('NewStoryController', {$scope: scope});
     });
 
     describe("on success", function() {
       beforeEach(function() {
-        scope.story = { url: "http://google.com", description: "Search on Google!", tags: "search, google" }
-        scope.user  = { email: "oldpal@email.com", token: "my_token" };
+        scope.story   = { url: "http://google.com", description: "Search on Google!",
+                          tags: "search, google", comment_text: "New comment" };;
+        scope.user    = { email: "oldpal@email.com", token: "my_token" };
 
         $httpBackend.expectPOST(BackendUrl + '/api/v1/stories', { story: scope.story }).respond(201);
-        ctrl.submit();
+
+        scope.submit();
         $httpBackend.flush();
       });
 
@@ -51,9 +56,11 @@ describe("NewStoryController", function(){
       });
 
       it("resets story form", function() {
-        expect(scope.story.url).toBe("");
         expect(scope.story.description).toBe("");
-        expect(scope.story.tag_list).toBe("");
+        expect(scope.story.tags).toBe("");
+        expect(scope.story.comment_text).toBe("");
+        expect(scope.story.url).toBe("");
+        expect(pristineSpy.called).toBe(true);
       });
     });
 
@@ -63,24 +70,16 @@ describe("NewStoryController", function(){
   });
 
   describe("reset", function() {
-    var pristineSpy, form;
-
     beforeEach(function() {
-      scope.story = { url: "http://google.com", description: "Search on Google!", tags: "search, google" }
-      ctrl = $controller('NewStoryController', {$scope: scope});
-
-      form = { $setPristine: function() {} };
-      pristineSpy = sinon.spy(form, "$setPristine");
-      ctrl.reset(form);
+      $controller('NewStoryController', {$scope: scope});
+      scope.reset();
     });
 
     it("resets form", function() {
       expect(scope.story.description).toBe("");
-      expect(scope.story.tag_list).toBe("");
+      expect(scope.story.tags).toBe("");
+      expect(scope.story.comment_text).toBe("");
       expect(scope.story.url).toBe("");
-    });
-
-    it("sets form to pristine", function() {
       expect(pristineSpy.called).toBe(true);
     });
   });
