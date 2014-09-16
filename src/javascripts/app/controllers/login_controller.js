@@ -1,7 +1,6 @@
 (function() {
-  var app = angular.module('login-directives', []);
-
-  app.controller('LoginController', ['$scope', '$http', '$location', 'BackendUrl',
+  angular.module('bizusafoApp.controllers').controller('LoginController',
+    ['$scope', '$http', '$location', 'BackendUrl',
     function ($scope, $http, $location, BackendUrl) {
       this.submitLogin = function() {
         $http.post(BackendUrl + "/api/v1/token", { user: $scope.user })
@@ -13,5 +12,5 @@
           chrome.storage.local.set({ user: { email: $scope.user.email } })
         });
       }
-  }]);
+    }]);
 })();

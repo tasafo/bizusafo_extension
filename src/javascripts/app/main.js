@@ -1,5 +1,5 @@
 (function() {
-  var app = angular.module('bizusafoApp', ['routes', 'login-directives', 'story-directives']);
+  var app = angular.module('bizusafoApp', ['routes', 'bizusafoApp.controllers']);
 
   app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

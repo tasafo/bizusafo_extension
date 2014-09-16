@@ -10,7 +10,9 @@
     <script src="/javascripts/app/settings.js"></script>
     <script src="/javascripts/app/main.js"></script>
     <script src="/javascripts/app/routes.js"></script>
+    <script src="/javascripts/app/controllers.js"></script>
     <script src="/javascripts/app/controllers/login_controller.js"></script>
+    <script src="/javascripts/app/controllers/logout_controller.js"></script>
     <script src="/javascripts/app/controllers/new_story_controller.js"></script>
 
     <link   href="stylesheets/lib/bootstrap.min.css" rel="stylesheet" />
@@ -19,6 +21,10 @@
 <body>
   <header>
     <a href="http://bizusafo.com.br"><img src="/images/logo.png"></a>
+
+    <ul ng-controller="LogoutController" ng-show="user.token">
+      <li><a ng-click="logout()" href="#">Sair</a></li>
+    </ul>
   </header>
 
   <div ng-view></div>

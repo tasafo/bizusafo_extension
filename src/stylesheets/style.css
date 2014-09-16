@@ -10,6 +10,15 @@ body > header  {
   margin-bottom: 20px;
 }
 
+body > header ul {
+  list-style: none;
+  width: 100px;
+  float: right;
+  margin-top: 22px;
+  padding: 0px;
+  text-align: right;
+}
+
 a, a:visited, a:hover, a:focus {
   text-decoration: none;
   outline: none;

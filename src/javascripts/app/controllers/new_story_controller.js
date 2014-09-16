@@ -1,7 +1,6 @@
 (function() {
-  var app = angular.module('story-directives', []);
-
-  app.controller('NewStoryController', ['$scope', '$http', 'BackendUrl',
+  angular.module('bizusafoApp.controllers').controller('NewStoryController',
+    ['$scope', '$http', 'BackendUrl',
     function ($scope, $http, BackendUrl) {
       $scope.submit = function() {
         $http.post(BackendUrl + "/api/v1/stories", { story: $scope.story }, { headers: { 'Authorization': "Token token=" + $scope.user.token } })
