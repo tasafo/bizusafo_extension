@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "BizuSafo!",
-  "description": "Compartilhe links com o BizuSafo com um clique!",
+  "name": "BizuSafo",
+  "description": "Compartilhe links no BizuSafo com um clique!",
   "version": "1.0",
 
   "browser_action": {
