@@ -3,13 +3,17 @@
 
   "name": "BizuSafo",
   "description": "Compartilhe links no BizuSafo com um clique!",
-  "version": "1.0",
+  "version": "1.0.1",
 
   "browser_action": {
     "default_icon": {
+      "16": "./images/icon16.png",
       "19": "./images/icon19.png",
-      "32": "./images/icon38.png",
-      "64": "./images/icon76.png"
+      "32": "./images/icon32.png",
+      "38": "./images/icon38.png",
+      "64": "./images/icon64.png",
+      "76": "./images/icon76.png",
+      "128": "./images/icon128.png"
     },
     "default_title": "BizuSafo!",
     "default_popup": "index.html"
