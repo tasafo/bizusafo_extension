@@ -3,5 +3,6 @@ node_modules
 .DS_Store
 .rvmrc
 src/javascripts/app/settings.js
-src.crx
-src.pem
+*.crx
+*.pem
+*.zip
