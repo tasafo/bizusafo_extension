@@ -23,6 +23,20 @@ describe("LoginController", function(){
       scope["user"] = { email: "oldpal@mail.com", password: "any password" };
     });
 
+    describe("on click", function() {
+      beforeEach(function() {
+        ctrl.submitLogin();
+      });
+
+      it("shows spinner", function() {
+        expect(scope.loggingIn).toBe(true);
+      });
+
+      it("disables button", function() {
+        expect(scope.buttonDisabled).toBe(true);
+      });
+    });
+
     describe("on success", function() {
       beforeEach(function() {
         $httpBackend.expectPOST(BackendUrl + '/api/v1/token', { user: scope.user }).respond({token: "my_token"});
@@ -55,38 +69,72 @@ describe("LoginController", function(){
           expect(data.user.password).toBe(undefined);
         });
       });
+
+      it("hides spinner", function() {
+        expect(scope.loggingIn).toBe(false);
+      });
+
+      it("enables button", function() {
+        expect(scope.buttonDisabled).toBe(false);
+      });
     });
 
     describe("on error", function() {
-      beforeEach(function() {
-        $httpBackend.expectPOST(BackendUrl + '/api/v1/token', { user: scope.user }).respond(401, '');
-        ctrl.submitLogin();
-        $httpBackend.flush();
-      });
+      describe("of any code", function() {
+        beforeEach(function() {
+          $httpBackend.expectPOST(BackendUrl + '/api/v1/token', { user: scope.user }).respond(500, '');
+          ctrl.submitLogin();
+          $httpBackend.flush();
+        });
 
-      it("does not set token", function() {
-        expect(scope.user.token).toBe(undefined);
-      });
+        it("does not set token", function() {
+          expect(scope.user.token).toBe(undefined);
+        });
 
-      it("stay on login path", function() {
-        expect($location.url()).toBe("/login");
-      });
+        it("stay on login path", function() {
+          expect($location.url()).toBe("/login");
+        });
 
-      it("does not store token", function() {
-        window.chrome.storage.local.get("user", function(data) {
-          expect(data.user.token).toBe(undefined);
+        it("does not store token", function() {
+          window.chrome.storage.local.get("user", function(data) {
+            expect(data.user.token).toBe(undefined);
+          });
+        });
+
+        it("stores email", function() {
+          window.chrome.storage.local.get("user", function(data) {
+            expect(data.user.email).toBe("oldpal@mail.com");
+          });
+        });
+
+        it("does not store password", function() {
+          window.chrome.storage.local.get("user", function(data) {
+            expect(data.user.password).toBe(undefined);
+          });
+        });
+
+        it("displays alert error", function() {
+          expect(scope.alert.error).toBe("Erro desconhecido. :(");
+        });
+
+        it("hides spinner", function() {
+          expect(scope.loggingIn).toBe(false);
+        });
+
+        it("enables button", function() {
+          expect(scope.buttonDisabled).toBe(false);
         });
       });
 
-      it("stores email", function() {
-        window.chrome.storage.local.get("user", function(data) {
-          expect(data.user.email).toBe("oldpal@mail.com");
+      describe("anauthorized 401", function() {
+        beforeEach(function() {
+          $httpBackend.expectPOST(BackendUrl + '/api/v1/token', { user: scope.user }).respond(401, '');
+          ctrl.submitLogin();
+          $httpBackend.flush();
         });
-      });
 
-      it("does not store password", function() {
-        window.chrome.storage.local.get("user", function(data) {
-          expect(data.user.password).toBe(undefined);
+        it("displays alert error", function() {
+          expect(scope.alert.error).toBe("Usuário ou senha incorretos");
         });
       });
     });

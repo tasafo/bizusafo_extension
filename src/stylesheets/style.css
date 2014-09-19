@@ -1,8 +1,7 @@
 body {
   width: 420px;
+  height: 100%;
   padding: 20px;
-  font-family: "Lucida Grande", "Helvetica", sans-serif;
-  font-size: 14px;
 }
 
 body > header  {
