@@ -33,8 +33,9 @@
     </div>
 
     <div class="actions">
-      <input type="submit" class="btn btn-primary" value="Compartilhar"/>
+      <input type="submit" class="btn btn-primary" ng-disabled="submitting" value="Compartilhar"/>
       ou <a href="" ng-click="reset()">Resetar</a>
+      <img src="images/spinner.gif" ng-show="submitting">
     </div>
   </form>
 </div>

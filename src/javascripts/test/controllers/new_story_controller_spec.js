@@ -39,6 +39,16 @@ describe("NewStoryController", function(){
       $controller('NewStoryController', {$scope: scope});
     });
 
+    describe("on click", function() {
+      beforeEach(function() {
+        scope.submit();
+      });
+
+      it("shows spinner", function() {
+        expect(scope.submitting).toBe(true);
+      });
+    });
+
     describe("on success", function() {
       beforeEach(function() {
         scope.story   = { url: "http://google.com", description: "Search on Google!",
@@ -62,10 +72,40 @@ describe("NewStoryController", function(){
         expect(scope.story.url).toBe("");
         expect(pristineSpy.called).toBe(true);
       });
+
+      it("hides spinner", function() {
+        expect(scope.submitting).toBe(false);
+      });
     });
 
     describe("on error", function() {
-      it("renders form error messages");
+      describe("of any code", function() {
+        beforeEach(function() {
+          $httpBackend.expectPOST(BackendUrl + '/api/v1/stories', { story: scope.story }).respond(500, "");
+          scope.submit();
+          $httpBackend.flush();
+        });
+
+        it("displays alert error", function() {
+          expect(scope.alert.error).toBe("Erro desconhecido. Por favor mantenha contato :(");
+        });
+
+        it("hides spinner", function() {
+          expect(scope.submitting).toBe(false);
+        });
+      });
+
+      describe("unprocessed entity 422", function() {
+        beforeEach(function() {
+          $httpBackend.expectPOST(BackendUrl + '/api/v1/stories', { story: scope.story }).respond(422, "");
+          scope.submit();
+          $httpBackend.flush();
+        });
+
+        it("displays alert error", function() {
+          expect(scope.alert.error).toBe("Bizu incompleto ou inválido");
+        });
+      });
     });
   });
 

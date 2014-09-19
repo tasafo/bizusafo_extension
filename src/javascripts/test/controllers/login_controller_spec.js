@@ -31,10 +31,6 @@ describe("LoginController", function(){
       it("shows spinner", function() {
         expect(scope.loggingIn).toBe(true);
       });
-
-      it("disables button", function() {
-        expect(scope.buttonDisabled).toBe(true);
-      });
     });
 
     describe("on success", function() {
@@ -114,15 +110,11 @@ describe("LoginController", function(){
         });
 
         it("displays alert error", function() {
-          expect(scope.alert.error).toBe("Erro desconhecido. :(");
+          expect(scope.alert.error).toBe("Erro desconhecido. Por favor mantenha contato :(");
         });
 
         it("hides spinner", function() {
           expect(scope.loggingIn).toBe(false);
-        });
-
-        it("enables button", function() {
-          expect(scope.buttonDisabled).toBe(false);
         });
       });
 
